@@ -6,6 +6,7 @@
 package view;
 
 
+import com.jtattoo.plaf.smart.*;
 import entity.DaftarGolongan;
 import implement.DaftarGolonganImplement;
 import interfce.DaftarGolonganInterface;
@@ -20,9 +21,11 @@ import javax.swing.event.ListSelectionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -57,12 +60,24 @@ int row;
         isiTabel();
     }
      void loadData(){
-        try{
+       if("".equals(txtNamaGolonganCari.getText())){
+         try{
             record = dGService.getAll();
         }
         catch(SQLException ex){
             Logger.getLogger(FormGolongan.class.getName()).log(Level.SEVERE, null, ex);
         }
+       }else
+       {
+               try{
+                    String namaGolongan = txtNamaGolonganCari.getText();
+                    record = dGService.cariGolongan(namaGolongan);
+        }
+        catch(SQLException ex){
+            Logger.getLogger(FormGolongan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       }
+           
     }
      void isiTabel(){
          jTabelMasterGolongan.clearSelection();
@@ -121,6 +136,8 @@ int row;
         cmdUbah = new javax.swing.JButton();
         cmdDelete = new javax.swing.JButton();
         cmdKeluar = new javax.swing.JButton();
+        txtNamaGolonganCari = new javax.swing.JTextField();
+        cmdCari = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -174,6 +191,19 @@ int row;
             }
         });
 
+        txtNamaGolonganCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNamaGolonganCariKeyReleased(evt);
+            }
+        });
+
+        cmdCari.setText("cari");
+        cmdCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdCariActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -200,6 +230,10 @@ int row;
                         .addComponent(cmdUbah)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmdDelete)
+                        .addGap(27, 27, 27)
+                        .addComponent(txtNamaGolonganCari, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmdCari)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cmdKeluar)))
                 .addContainerGap())
@@ -224,7 +258,9 @@ int row;
                     .addComponent(cmdSimpan)
                     .addComponent(cmdUbah)
                     .addComponent(cmdDelete)
-                    .addComponent(cmdKeluar))
+                    .addComponent(cmdKeluar)
+                    .addComponent(txtNamaGolonganCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmdCari))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -303,6 +339,18 @@ int row;
         }
     }//GEN-LAST:event_cmdUbahActionPerformed
 
+    private void txtNamaGolonganCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNamaGolonganCariKeyReleased
+      
+        
+       
+ 
+ 
+    }//GEN-LAST:event_txtNamaGolonganCariKeyReleased
+
+    private void cmdCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCariActionPerformed
+        statusAwal();
+    }//GEN-LAST:event_cmdCariActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -314,10 +362,39 @@ int row;
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+           Properties props = new Properties();
+            
+            props.put("logoString", "my company"); 
+            props.put("licenseKey", "INSERT YOUR LICENSE KEY HERE");
+            
+            props.put("selectionBackgroundColor", "180 240 197"); 
+            props.put("menuSelectionBackgroundColor", "180 240 197"); 
+            
+            props.put("controlColor", "218 254 230");
+            props.put("controlColorLight", "218 254 230");
+            props.put("controlColorDark", "180 240 197"); 
+
+            props.put("buttonColor", "218 230 254");
+            props.put("buttonColorLight", "255 255 255");
+            props.put("buttonColorDark", "244 242 232");
+
+            props.put("rolloverColor", "218 254 230"); 
+            props.put("rolloverColorLight", "218 254 230"); 
+            props.put("rolloverColorDark", "180 240 197"); 
+
+            props.put("windowTitleForegroundColor", "0 0 0");
+            props.put("windowTitleBackgroundColor", "180 240 197"); 
+            props.put("windowTitleColorLight", "218 254 230"); 
+            props.put("windowTitleColorDark", "180 240 197"); 
+            props.put("windowBorderColor", "218 254 230");
+            
+            // set your theme
+            SmartLookAndFeel.setCurrentTheme(props);
+                 UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(FormGolongan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -340,6 +417,7 @@ int row;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cmdCari;
     private javax.swing.JButton cmdDelete;
     private javax.swing.JButton cmdKeluar;
     private javax.swing.JButton cmdSimpan;
@@ -351,6 +429,7 @@ int row;
     private javax.swing.JTable jTabelMasterGolongan;
     private javax.swing.JTextField txtKodeGolongan;
     private javax.swing.JTextField txtNamaGolongan;
+    private javax.swing.JTextField txtNamaGolonganCari;
     // End of variables declaration//GEN-END:variables
 
     private void kosongkanText() {

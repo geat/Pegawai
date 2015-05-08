@@ -100,4 +100,35 @@ DateUtility du = new DateUtility();
         st.setString(1, id);
         st.executeUpdate();
     }
+
+    @Override
+    public List cariPegawai(String namaPegawai) throws SQLException {
+       String sql="select * from pegawai where nama=?";
+       PreparedStatement pst = koneksi.getConnection().prepareStatement(sql);
+       pst.setString(1,namaPegawai);
+       ResultSet rs=pst.executeQuery();
+        
+        List<Pegawai>list = new ArrayList<>();
+        
+      while(rs.next()){
+            Pegawai p = new Pegawai();
+            p.setIdPegawai(rs.getString("id_pegawai"));
+            p.setNipPegawai(rs.getString("NIP"));
+            p.setNamaPegawai(rs.getString("nama"));
+            p.setTempatLahir(rs.getString("tempat_lahir"));
+            p.setTanggalLahirPegawai(rs.getString("tanggal_lahir"));
+            p.setJenisKelamin(rs.getString("Jenis_kelamin"));
+            p.setAgama(rs.getString("agama"));
+            p.setJabatan(rs.getString("jabatan"));
+            p.setAlamat(rs.getString("alamat"));
+            p.setNoTelpon(rs.getString("no_telpon"));
+            p.setTanggalBergabungpegawai(rs.getString("tanggal_masuk"));
+            p.setStatusKawin(rs.getString("status_kawin"));
+            p.setStatusPekerjaan(rs.getString("status_pekerjaan"));
+            list.add(p);
+        }
+    return list;
+    
+    
+    }
 }

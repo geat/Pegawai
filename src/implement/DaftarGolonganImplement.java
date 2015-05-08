@@ -66,4 +66,22 @@ public class DaftarGolonganImplement implements DaftarGolonganInterface {
         st.setString(1, id);
         st.executeUpdate();
     }
+
+    @Override
+   public List<DaftarGolongan> cariGolongan(String  namaGolongan) throws SQLException {
+       String sql="select * from daftar_golongan where nama_golongan=?";
+       PreparedStatement pst = koneksi.getConnection().prepareStatement(sql);
+       pst.setString(1,namaGolongan);
+       ResultSet rs=pst.executeQuery();
+        
+        List<DaftarGolongan>list = new ArrayList<>();
+        while(rs.next()){
+            DaftarGolongan dG = new DaftarGolongan();
+            dG.setId(rs.getInt("id"));
+            dG.setNamaGolongan(rs.getString("nama_golongan"));
+            
+            list.add(dG);
+        }
+        return list;
+    }
 }

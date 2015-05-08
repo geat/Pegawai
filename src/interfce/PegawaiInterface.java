@@ -19,4 +19,5 @@ public interface PegawaiInterface {
     Pegawai insert(Pegawai o) throws SQLException;
     void update(Pegawai o) throws SQLException;
     void delete(String id) throws SQLException;
+    List cariPegawai(String namaPegawai) throws SQLException;
 }

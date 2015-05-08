@@ -18,4 +18,5 @@ public interface DaftarGolonganInterface {
     DaftarGolongan insert(DaftarGolongan o) throws SQLException;
     void update(DaftarGolongan o) throws SQLException;
     void delete(String id) throws SQLException;
+    List cariGolongan(String namaGolongan) throws SQLException;
 }

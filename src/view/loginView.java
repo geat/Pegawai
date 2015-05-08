@@ -5,15 +5,18 @@
  */
 package view;
 
+import com.jtattoo.plaf.smart.SmartLookAndFeel;
 import java.awt.Component;
 import utility.koneksi;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 import penggajianpegawai.Main;
 
@@ -98,7 +101,7 @@ public class loginView extends javax.swing.JFrame {
 
         jLabel3.setText("Password");
 
-        bLogin.setText("LOGIN");
+        bLogin.setText("Login");
         bLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,7 +109,7 @@ public class loginView extends javax.swing.JFrame {
             }
         });
 
-        bExit.setText("EXIT");
+        bExit.setText("Batal");
         bExit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,32 +122,29 @@ public class loginView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(111, 111, 111)
-                        .addComponent(jLabel1))
+                        .addComponent(bLogin)
+                        .addGap(18, 18, 18)
+                        .addComponent(bExit))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(loginUsername)
-                            .addComponent(loginPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(86, 86, 86)
-                        .addComponent(bLogin)
-                        .addGap(34, 34, 34)
-                        .addComponent(bExit, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(76, Short.MAX_VALUE))
+                            .addComponent(loginPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(25, 25, 25)
                 .addComponent(jLabel1)
-                .addGap(32, 32, 32)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loginUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -152,11 +152,11 @@ public class loginView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(loginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bLogin)
                     .addComponent(bExit))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -187,10 +187,39 @@ public class loginView extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+              Properties props = new Properties();
+            
+            props.put("logoString", "my company"); 
+            props.put("licenseKey", "INSERT YOUR LICENSE KEY HERE");
+            
+            props.put("selectionBackgroundColor", "180 240 197"); 
+            props.put("menuSelectionBackgroundColor", "180 240 197"); 
+            
+            props.put("controlColor", "218 254 230");
+            props.put("controlColorLight", "218 254 230");
+            props.put("controlColorDark", "180 240 197"); 
+
+            props.put("buttonColor", "218 230 254");
+            props.put("buttonColorLight", "255 255 255");
+            props.put("buttonColorDark", "244 242 232");
+
+            props.put("rolloverColor", "218 254 230"); 
+            props.put("rolloverColorLight", "218 254 230"); 
+            props.put("rolloverColorDark", "180 240 197"); 
+
+            props.put("windowTitleForegroundColor", "0 0 0");
+            props.put("windowTitleBackgroundColor", "180 240 197"); 
+            props.put("windowTitleColorLight", "218 254 230"); 
+            props.put("windowTitleColorDark", "180 240 197"); 
+            props.put("windowBorderColor", "218 254 230");
+            
+            // set your theme
+            SmartLookAndFeel.setCurrentTheme(props);
+                 UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(loginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);

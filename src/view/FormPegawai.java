@@ -10,7 +10,10 @@ import entity.Pegawai;
 import implement.DaftarGolonganImplement;
 import implement.PegawaiImplement;
 import interfce.PegawaiInterface;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import utility.DateUtility;
+import utility.koneksi;
 
 /**
  *
@@ -72,12 +76,22 @@ DateUtility du = new DateUtility();
     }
    
      void loadData(){
-        try{
+        if("".equals(txtCariNamaPegawai.getText())){
+         try{
             record = pService.getAll();
+        }
+        catch(SQLException ex){
+            Logger.getLogger(FormGolongan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }else{
+        try{
+            String namaPegawai = txtCariNamaPegawai.getText();
+            record = pService.cariPegawai(namaPegawai);
         }
         catch(SQLException ex){
             Logger.getLogger(FormPegawai.class.getName()).log(Level.SEVERE, null, ex);
         }
+                }
     }
 
     /**
@@ -125,6 +139,10 @@ DateUtility du = new DateUtility();
         cbStatusPegawai = new javax.swing.JComboBox();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        txtCariNamaPegawai = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Form Master Pegawai");
@@ -260,14 +278,41 @@ DateUtility du = new DateUtility();
         jLabel16.setForeground(new java.awt.Color(0, 0, 204));
         jLabel16.setText("YYYY-MM-DD");
 
+        jLabel17.setText("Nama Pegawai");
+
+        jLabel18.setText("Status");
+
+        jButton1.setText("cari");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addComponent(cmdSimpan)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmdUbah)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmdHapus)
+                .addGap(57, 57, 57)
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtCariNamaPegawai, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addGap(295, 295, 295)
+                .addComponent(cmdKeluar)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
@@ -277,72 +322,61 @@ DateUtility du = new DateUtility();
                                             .addComponent(jLabel3)
                                             .addComponent(jLabel4)
                                             .addComponent(jLabel6)
-                                            .addComponent(jLabel7))
+                                            .addComponent(jLabel7)
+                                            .addComponent(jLabel5))
+                                        .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtTempatLahir)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addGap(15, 15, 15)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(txtIdPegawai, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addComponent(txtNip, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(txtIdPegawai, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(18, 18, 18)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(txtTanggalLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(cbJenisKelamin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jLabel15))))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(txtTanggalLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGap(18, 18, 18)
+                                                        .addComponent(jLabel15))
+                                                    .addComponent(cbJenisKelamin, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(0, 0, Short.MAX_VALUE))))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtTempatLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(20, 20, 20)
+                                        .addComponent(jLabel2)
+                                        .addGap(355, 355, 355)))
+                                .addGap(104, 104, 104)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel8))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel10)
-                                            .addComponent(jLabel9)
-                                            .addComponent(jLabel11))
-                                        .addGap(54, 54, 54)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtTelepon, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtJabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtStatusNikah)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(cbAgama, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(214, 214, 214)
-                                                .addComponent(cbStatusPegawai, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(txtJabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(txtTelepon, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(txtTanggalMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGap(18, 18, 18)
+                                                        .addComponent(jLabel16)))
+                                                .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addGap(38, 38, 38))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel12)
-                                            .addComponent(jLabel13))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtStatusNikah, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                                            .addComponent(txtTanggalMasuk))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel16)))))
-                        .addContainerGap(121, Short.MAX_VALUE))
+                                            .addComponent(cbAgama, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel14))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel18)
+                                        .addGap(18, 18, 18)))
+                                .addComponent(cbStatusPegawai, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(14, 14, 14))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(272, 272, 272)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel14)
-                        .addGap(246, 246, 246))))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(cmdSimpan)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cmdUbah)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cmdHapus)
-                .addGap(681, 681, 681)
-                .addComponent(cmdKeluar)
-                .addGap(0, 19, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
+                        .addContainerGap()
+                        .addComponent(jScrollPane1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -351,13 +385,15 @@ DateUtility du = new DateUtility();
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel14)
-                    .addComponent(txtIdPegawai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbAgama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbStatusPegawai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel14)
+                        .addComponent(txtIdPegawai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbAgama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbStatusPegawai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel18)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -406,7 +442,10 @@ DateUtility du = new DateUtility();
                     .addComponent(cmdSimpan)
                     .addComponent(cmdUbah)
                     .addComponent(cmdHapus)
-                    .addComponent(cmdKeluar))
+                    .addComponent(cmdKeluar)
+                    .addComponent(jLabel17)
+                    .addComponent(txtCariNamaPegawai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -444,16 +483,170 @@ DateUtility du = new DateUtility();
     
     private void cmdSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSimpanActionPerformed
         // TODO add your handling code here:
+        int p=JOptionPane.showConfirmDialog(null,"Apakah Anda yakin ingin merubah data","Simpan Data",JOptionPane.YES_NO_OPTION);
+        if(p==0){
+         try {
+                  String sql="select * from pegawai where NIP=?";
+                  PreparedStatement pst = koneksi.getConnection().prepareStatement(sql);
+                  pst.setString(1,txtNip.getText());
+                  ResultSet rs=pst.executeQuery();
+                  if (rs.next()){
+                        JOptionPane.showMessageDialog(null, "Nip Sudah Terpakai silahkan isi nip kembali !!");
+                        txtNip.setText("");
+                  }else {
+                      simpan();            
+                  }
+            } catch (SQLException ex) {
+                Logger.getLogger(FormPegawai.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         
+        }
+       
+    }//GEN-LAST:event_cmdSimpanActionPerformed
+
+    private void txtTanggalMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTanggalMasukActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTanggalMasukActionPerformed
+
+    private void cbStatusPegawaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbStatusPegawaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbStatusPegawaiActionPerformed
+
+    private void cmdHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdHapusActionPerformed
+       String cekId = txtIdPegawai.getText();
+        int po=JOptionPane.showConfirmDialog(null,"Apakah Anda yakin ingin menghapus data","Hapus Data",JOptionPane.YES_NO_OPTION);
+        if(po==0){
+        if(cekId.trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Pilih pegawai yang ingin dihapus!");
+        }else{
+            try{
+                Pegawai p = new Pegawai();
+                String id = txtIdPegawai.getText();
+                pService.delete(id);
+          
+                        JOptionPane.showMessageDialog(null, "Data  berhasil dihapus!");
+                        statusAwal();
+                      
+            }
+            catch(SQLException ex){
+                Logger.getLogger(FormPegawai.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        }
+    }//GEN-LAST:event_cmdHapusActionPerformed
+
+    private void cmdUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdUbahActionPerformed
+     int po=JOptionPane.showConfirmDialog(null,"Apakah Anda yakin ingin mengubah data","Ubah Data",JOptionPane.YES_NO_OPTION);
+        if(po==0){
+        String cekId = txtIdPegawai.getText();
+        
+        if(cekId.trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Pilih pegawai yang ingin dihapus!");
+        }else{
+            try{
+                Pegawai  p = new Pegawai();
+                p.setIdPegawai(txtIdPegawai.getText());
+                p.setNip(txtNip.getText());
+                p.setNamaPegawai(txtNama.getText());
+                p.setTempatLahir(txtTempatLahir.getText());
+                p.setNamaPegawai(txtNama.getText());
+                Date tanggalLahir=du.createDate(txtTanggalLahir.getText());
+                p.setTanggalLahir(tanggalLahir);
+                p.setJenisKelamin((String) cbJenisKelamin.getSelectedItem());
+                p.setAgama((String) cbAgama.getSelectedItem());
+                p.setJabatan(txtJabatan.getText());
+                p.setAlamat(txtAlamat.getText());
+                p.setNoTelpon(txtTelepon.getText());
+                 Date tanggalBergabung=du.createDate(txtTanggalMasuk.getText());
+                 p.setTanggalBergabung(tanggalBergabung);
+                 p.setStatusKawin(txtStatusNikah.getText());
+                 p.setStatusPekerjaan((String) cbStatusPegawai.getSelectedItem());
+                
+                pService.update(p);
+                        this.statusAwal();
+                        JOptionPane.showMessageDialog(this, "Data berhasil dirubah!");
+                        statusAwal();
+            }
+            catch(SQLException ex){
+                Logger.getLogger(FormGolongan.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        }
+    }//GEN-LAST:event_cmdUbahActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      statusAwal();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cbAgama;
+    private javax.swing.JComboBox cbJenisKelamin;
+    private javax.swing.JComboBox cbStatusPegawai;
+    private javax.swing.JButton cmdHapus;
+    private javax.swing.JButton cmdKeluar;
+    private javax.swing.JButton cmdSimpan;
+    private javax.swing.JButton cmdUbah;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tabelPegawai;
+    private javax.swing.JTextArea txtAlamat;
+    private javax.swing.JTextField txtCariNamaPegawai;
+    private javax.swing.JTextField txtIdPegawai;
+    private javax.swing.JTextField txtJabatan;
+    private javax.swing.JTextField txtNama;
+    private javax.swing.JTextField txtNip;
+    private javax.swing.JTextField txtStatusNikah;
+    private javax.swing.JTextField txtTanggalLahir;
+    private javax.swing.JTextField txtTanggalMasuk;
+    private javax.swing.JTextField txtTelepon;
+    private javax.swing.JTextField txtTempatLahir;
+    // End of variables declaration//GEN-END:variables
+
+    private void isiText() {
+
+        Pegawai p = record.get(row);
+        txtNip.setText(p.getNipPegawai());
+        txtNama.setText(p.getNamaPegawai());
+        txtIdPegawai.setText(p.getIdPegawai());
+        txtJabatan.setText(p.getJabatan());
+        txtTempatLahir.setText(p.getTempatLahir());
+        cbJenisKelamin.setSelectedItem(p.getJenisKelamin());
+        cbAgama.setSelectedItem(p.getAgama());
+        txtAlamat.setText(p.getAlamat());
+        txtTelepon.setText(p.getNoTelpon());
+        txtStatusNikah.setText(p.getStatusKawin());
+        txtTanggalLahir.setText(p.getTanggalLahirPegawai());
+        txtTanggalMasuk.setText(p.getTanggalBergabungpegawai());
+           
+    }
+    void  simpan(){
         String cekid=txtIdPegawai.getText();
         String cekNip=txtNip.getText();
         String cekNama=txtNama.getText();
         String cekAlamat=txtAlamat.getText();
         String cekTempatLahir=txtTempatLahir.getText();
         
-        
-   
-        
-        if(cekNip.trim().isEmpty()){
+         if(cekNip.trim().isEmpty()){
             JOptionPane.showMessageDialog(null, "NIP Harus Di Isi!");
         }else  if(!du.isDateValid(txtTanggalLahir.getText())){
             JOptionPane.showMessageDialog(null, "Tanggal Lahir tidak valid");
@@ -495,129 +688,6 @@ DateUtility du = new DateUtility();
             }
         } 
         statusAwal();
-    }//GEN-LAST:event_cmdSimpanActionPerformed
-
-    private void txtTanggalMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTanggalMasukActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTanggalMasukActionPerformed
-
-    private void cbStatusPegawaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbStatusPegawaiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbStatusPegawaiActionPerformed
-
-    private void cmdHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdHapusActionPerformed
-       String cekId = txtIdPegawai.getText();
-        
-        if(cekId.trim().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Pilih pegawai yang ingin dihapus!");
-        }else{
-            try{
-                Pegawai p = new Pegawai();
-                String id = txtIdPegawai.getText();
-                pService.delete(id);
-          
-                        JOptionPane.showMessageDialog(null, "Data  berhasil dihapus!");
-                        statusAwal();
-                      
-            }
-            catch(SQLException ex){
-                Logger.getLogger(FormPegawai.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_cmdHapusActionPerformed
-
-    private void cmdUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdUbahActionPerformed
-      String cekId = txtIdPegawai.getText();
-        
-        if(cekId.trim().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Pilih pegawai yang ingin dihapus!");
-        }else{
-            try{
-                Pegawai  p = new Pegawai();
-                p.setIdPegawai(txtIdPegawai.getText());
-                p.setNip(txtNip.getText());
-                p.setNamaPegawai(txtNama.getText());
-                p.setTempatLahir(txtTempatLahir.getText());
-                p.setNamaPegawai(txtNama.getText());
-                Date tanggalLahir=du.createDate(txtTanggalLahir.getText());
-                p.setTanggalLahir(tanggalLahir);
-                p.setJenisKelamin((String) cbJenisKelamin.getSelectedItem());
-                p.setAgama((String) cbAgama.getSelectedItem());
-                p.setJabatan(txtJabatan.getText());
-                p.setAlamat(txtAlamat.getText());
-                p.setNoTelpon(txtTelepon.getText());
-                 Date tanggalBergabung=du.createDate(txtTanggalMasuk.getText());
-                 p.setTanggalBergabung(tanggalBergabung);
-                 p.setStatusKawin(txtStatusNikah.getText());
-                 p.setStatusPekerjaan((String) cbStatusPegawai.getSelectedItem());
-                
-                pService.update(p);
-                        this.statusAwal();
-                        JOptionPane.showMessageDialog(this, "Data berhasil dirubah!");
-                        statusAwal();
-            }
-            catch(SQLException ex){
-                Logger.getLogger(FormGolongan.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_cmdUbahActionPerformed
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox cbAgama;
-    private javax.swing.JComboBox cbJenisKelamin;
-    private javax.swing.JComboBox cbStatusPegawai;
-    private javax.swing.JButton cmdHapus;
-    private javax.swing.JButton cmdKeluar;
-    private javax.swing.JButton cmdSimpan;
-    private javax.swing.JButton cmdUbah;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tabelPegawai;
-    private javax.swing.JTextArea txtAlamat;
-    private javax.swing.JTextField txtIdPegawai;
-    private javax.swing.JTextField txtJabatan;
-    private javax.swing.JTextField txtNama;
-    private javax.swing.JTextField txtNip;
-    private javax.swing.JTextField txtStatusNikah;
-    private javax.swing.JTextField txtTanggalLahir;
-    private javax.swing.JTextField txtTanggalMasuk;
-    private javax.swing.JTextField txtTelepon;
-    private javax.swing.JTextField txtTempatLahir;
-    // End of variables declaration//GEN-END:variables
-
-    private void isiText() {
-
-        Pegawai p = record.get(row);
-        txtNip.setText(p.getNipPegawai());
-        txtNama.setText(p.getNamaPegawai());
-        txtIdPegawai.setText(p.getIdPegawai());
-        txtJabatan.setText(p.getJabatan());
-        txtTempatLahir.setText(p.getTempatLahir());
-        cbJenisKelamin.setSelectedItem(p.getJenisKelamin());
-        cbAgama.setSelectedItem(p.getAgama());
-        txtAlamat.setText(p.getAlamat());
-        txtTelepon.setText(p.getNoTelpon());
-        txtStatusNikah.setText(p.getStatusKawin());
-        txtTanggalLahir.setText(p.getTanggalLahirPegawai());
-        txtTanggalMasuk.setText(p.getTanggalBergabungpegawai());
-           
     }
     void isiTabel(){
          tabelPegawai.clearSelection();

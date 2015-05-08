@@ -49,6 +49,10 @@
                       <Component id="cmdUbah" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cmdDelete" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="txtNamaGolonganCari" min="-2" pref="159" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="cmdCari" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="cmdKeluar" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -80,6 +84,8 @@
                   <Component id="cmdUbah" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cmdDelete" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cmdKeluar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtNamaGolonganCari" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmdCari" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -178,6 +184,19 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdKeluarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtNamaGolonganCari">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNamaGolonganCariKeyReleased"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="cmdCari">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="cari"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdCariActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
