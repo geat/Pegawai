@@ -64,7 +64,12 @@ public class DateUtility {
             if(rs.next()) d = rs.getDate(1); else return null;
         } catch (Exception e) {} return d;
     }
-
+    public boolean isDateBulanValid(String db){
+        String dateformat = "yyyy";
+        if(db.length() > 4) return false;
+        if(db.length() < 4) return false;
+        return true;
+    }
     public  boolean isDateValid(String dt) {
 	String dateformat = "yyyy-MM-dd";
         if(dt.length() > 10) return false;

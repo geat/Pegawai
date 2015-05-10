@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LaporanDaftarPegawai" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="55897bba-c748-4fcc-b8b5-08caa82a2431">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     pegawai.`id_pegawai` AS pegawai_id_pegawai,
+     pegawai.`NIP` AS pegawai_NIP,
+     pegawai.`nama` AS pegawai_nama,
+     pegawai.`tempat_lahir` AS pegawai_tempat_lahir,
+     pegawai.`tanggal_lahir` AS pegawai_tanggal_lahir,
+     pegawai.`jenis_kelamin` AS pegawai_jenis_kelamin,
+     pegawai.`agama` AS pegawai_agama,
+     pegawai.`jabatan` AS pegawai_jabatan,
+     pegawai.`alamat` AS pegawai_alamat,
+     pegawai.`no_telpon` AS pegawai_no_telpon,
+     pegawai.`tanggal_masuk` AS pegawai_tanggal_masuk,
+     pegawai.`status_kawin` AS pegawai_status_kawin,
+     pegawai.`status_pekerjaan` AS pegawai_status_pekerjaan
+FROM
+     `pegawai` pegawai]]>
+	</queryString>
+	<field name="pegawai_id_pegawai" class="java.lang.Integer"/>
+	<field name="pegawai_NIP" class="java.lang.Integer"/>
+	<field name="pegawai_nama" class="java.lang.String"/>
+	<field name="pegawai_tempat_lahir" class="java.lang.String"/>
+	<field name="pegawai_tanggal_lahir" class="java.sql.Date"/>
+	<field name="pegawai_jenis_kelamin" class="java.lang.String"/>
+	<field name="pegawai_agama" class="java.lang.String"/>
+	<field name="pegawai_jabatan" class="java.lang.String"/>
+	<field name="pegawai_alamat" class="java.lang.String"/>
+	<field name="pegawai_no_telpon" class="java.lang.String"/>
+	<field name="pegawai_tanggal_masuk" class="java.sql.Date"/>
+	<field name="pegawai_status_kawin" class="java.lang.String"/>
+	<field name="pegawai_status_pekerjaan" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="126" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="164" y="0" width="369" height="62" uuid="2231d5f8-adbf-454d-b70a-3b1975426548"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Daftar Pegawai]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="1" y="39" width="802" height="1" uuid="a413bee3-2908-413e-af46-c974c1f18d60"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="244" y="0" width="61" height="40" forecolor="#736343" uuid="a5ae7722-a6fb-4e27-9c5e-621dac42dd6c"/>
+				<text><![CDATA[tanggal lahir]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="305" y="0" width="61" height="40" forecolor="#736343" uuid="800d8d1a-d4b8-45cf-858d-aabdecc3fb56"/>
+				<text><![CDATA[Jenis kelamin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="366" y="11" width="61" height="15" forecolor="#736343" uuid="a1de80bb-2bf0-40e9-8703-2f42c664627b"/>
+				<text><![CDATA[agama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="427" y="11" width="61" height="15" forecolor="#736343" uuid="a81464d5-dc97-4a5a-8fcd-95f68097ab9d"/>
+				<text><![CDATA[jabatan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="488" y="11" width="61" height="15" forecolor="#736343" uuid="ffc21449-86ef-46d1-9306-b22f8231dabe"/>
+				<text><![CDATA[alamat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="549" y="11" width="61" height="15" forecolor="#736343" uuid="6d95ec0a-b6ec-4c47-843f-3f148aedaed0"/>
+				<text><![CDATA[no_telpon]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="610" y="0" width="61" height="40" forecolor="#736343" uuid="5f5c8aac-eca3-49b2-9151-996543e73dc4"/>
+				<text><![CDATA[tanggal masuk]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="671" y="0" width="61" height="40" forecolor="#736343" uuid="45105bba-f439-4b54-a0e0-6ad53a009832"/>
+				<text><![CDATA[status kawin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="732" y="0" width="61" height="40" forecolor="#736343" uuid="6432235d-f48b-461e-ad9b-685742f337e2"/>
+				<text><![CDATA[Status pekerjaan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="183" y="0" width="61" height="40" forecolor="#736343" uuid="fb2a9396-a246-42b7-951a-17123a077c50"/>
+				<text><![CDATA[tempat lahir]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="122" y="11" width="61" height="26" forecolor="#736343" uuid="45cc8c4d-306a-4386-be11-1fa4e2a0dc9f"/>
+				<text><![CDATA[nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="71" y="11" width="61" height="15" forecolor="#736343" uuid="bee7781f-92c6-4145-b9f6-b68beb1d5dbf"/>
+				<text><![CDATA[NIP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="11" width="61" height="28" forecolor="#736343" uuid="6ce4103b-9b6c-44f5-bece-df03239bdfcd"/>
+				<text><![CDATA[id pegawai]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="802" height="15" uuid="f5db7d68-0241-4db5-9f58-bb35568a8c89"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="0" y="0" width="61" height="15" uuid="828d9dda-6fe3-4704-8493-3e6960d004a2"/>
+					<textFieldExpression><![CDATA[$F{pegawai_id_pegawai}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="61" y="0" width="61" height="15" uuid="43357683-58d2-43bc-bc9a-7e2dc6c0015b"/>
+					<textFieldExpression><![CDATA[$F{pegawai_NIP}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="122" y="0" width="61" height="15" uuid="a4a24ddc-b0f3-4356-93d6-8de6e4e8faf9"/>
+					<textFieldExpression><![CDATA[$F{pegawai_nama}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="183" y="0" width="61" height="15" uuid="52cc06d0-4e92-4a11-82d3-b878068cac30"/>
+					<textFieldExpression><![CDATA[$F{pegawai_tempat_lahir}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="244" y="0" width="61" height="15" uuid="1ab0afcc-890e-4664-8da7-0661d0fadce3"/>
+					<textFieldExpression><![CDATA[$F{pegawai_tanggal_lahir}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="305" y="0" width="61" height="15" uuid="0ce2b0d3-e1f9-4e41-95d6-b53fd5066da7"/>
+					<textFieldExpression><![CDATA[$F{pegawai_jenis_kelamin}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="366" y="0" width="61" height="15" uuid="24c97971-934b-4c6f-b3c3-7b1647f0d0c4"/>
+					<textFieldExpression><![CDATA[$F{pegawai_agama}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="427" y="0" width="61" height="15" uuid="a0eba9da-2296-46ec-a90a-10fa643e5975"/>
+					<textFieldExpression><![CDATA[$F{pegawai_jabatan}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="488" y="0" width="61" height="15" uuid="56fa8e9b-8663-4018-81e7-2abaee4fdf95"/>
+					<textFieldExpression><![CDATA[$F{pegawai_alamat}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="549" y="0" width="61" height="15" uuid="d0449800-6683-4e73-bd2d-ebe886cab599"/>
+					<textFieldExpression><![CDATA[$F{pegawai_no_telpon}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="610" y="0" width="61" height="15" uuid="ea197d85-a031-4e8b-834c-4fc7b0643862"/>
+					<textFieldExpression><![CDATA[$F{pegawai_tanggal_masuk}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="671" y="0" width="61" height="15" uuid="1b4d8d8e-0c55-443e-8ef5-1568fa38a421"/>
+					<textFieldExpression><![CDATA[$F{pegawai_status_kawin}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="732" y="0" width="61" height="15" uuid="575bece8-1b7a-47ed-840c-ece67bd948cb"/>
+					<textFieldExpression><![CDATA[$F{pegawai_status_pekerjaan}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="3547285e-72b8-4a33-8219-e3f421e7f166"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="0e3343f0-efe2-4b68-bbfd-51221d478f62"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="783" y="1" width="40" height="20" forecolor="#736343" uuid="d28fb730-590e-428c-9c0d-6f00250d696b"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="703" y="1" width="80" height="20" forecolor="#736343" uuid="3df8b623-1ee8-47f7-bec4-a9c8f1061be0"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="660766f5-c905-4865-87b5-94beeed0dfd0"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

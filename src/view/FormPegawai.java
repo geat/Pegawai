@@ -42,7 +42,7 @@ DateUtility du = new DateUtility();
     public FormPegawai() {
         initComponents();
         pService=new PegawaiImplement();
-             tabelPegawai.getSelectionModel().addListSelectionListener((ListSelectionEvent e)->{
+            tabelPegawai.getSelectionModel().addListSelectionListener((ListSelectionEvent e)->{
             row = tabelPegawai.getSelectedRow();
             if(row!=-1){
             isiText();
@@ -306,7 +306,7 @@ DateUtility du = new DateUtility();
                 .addComponent(txtCariNamaPegawai, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addGap(295, 295, 295)
+                .addGap(242, 242, 242)
                 .addComponent(cmdKeluar)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -446,7 +446,7 @@ DateUtility du = new DateUtility();
                     .addComponent(jLabel17)
                     .addComponent(txtCariNamaPegawai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();

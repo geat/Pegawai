@@ -12,6 +12,11 @@
         <Property name="text" type="java.lang.String" value="jMenuItem2"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.JMenuItem" name="jMenuItem4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jMenuItem4"/>
+      </Properties>
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="menuPegawai">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="menuFile">
@@ -84,7 +89,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="transaksiPembelian">
               <Properties>
-                <Property name="text" type="java.lang.String" value="PEMBELIAN"/>
+                <Property name="text" type="java.lang.String" value="Golongan Pegawai"/>
                 <Property name="toolTipText" type="java.lang.String" value="Transaksi Pembelian"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                   <Color id="Hand Cursor"/>
@@ -95,7 +100,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="transaksiPenjualan">
               <Properties>
-                <Property name="text" type="java.lang.String" value="PENJUALAN"/>
+                <Property name="text" type="java.lang.String" value="Penggajian"/>
                 <Property name="toolTipText" type="java.lang.String" value="Transaksi Penjualan"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                   <Color id="Hand Cursor"/>
@@ -103,6 +108,22 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="transaksiPenjualanActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Daftar Tunjangan"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Tambah Tunjangan"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem5ActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -119,29 +140,35 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="laporanBarang">
               <Properties>
-                <Property name="text" type="java.lang.String" value="BARANG"/>
+                <Property name="text" type="java.lang.String" value="Master Golongan"/>
                 <Property name="toolTipText" type="java.lang.String" value="Laporan Barang"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                   <Color id="Hand Cursor"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="laporanBarangActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="laporanPelanggan">
               <Properties>
-                <Property name="text" type="java.lang.String" value="PELANGGAN"/>
+                <Property name="text" type="java.lang.String" value="Master Pegawai"/>
                 <Property name="toolTipText" type="java.lang.String" value="Laporan Pelanggan"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                   <Color id="Hand Cursor"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="laporanPelangganActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator2">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="laporanTransaksi">
               <Properties>
-                <Property name="text" type="java.lang.String" value="TRANSAKSI"/>
+                <Property name="text" type="java.lang.String" value="Golongan Pegawai"/>
                 <Property name="toolTipText" type="java.lang.String" value="Laporan Transaksi"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                   <Color id="Hand Cursor"/>

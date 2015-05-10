@@ -20,7 +20,7 @@ import java.util.Objects;
  */
 public class Tunjangan {
     private long id;
-    private Pegawai pegawai;
+    private int idPegawai;
     private String periodeBulan;
     private String periodeTahun;
     private String namaTunjangan;
@@ -36,15 +36,6 @@ public class Tunjangan {
     public void setId(long id) {
         this.id = id;
     }
-
-    public Pegawai getPegawai() {
-        return pegawai;
-    }
-
-    public void setPegawai(Pegawai pegawai) {
-        this.pegawai = pegawai;
-    }
-
     public String getPeriodeBulan() {
         return periodeBulan;
     }
@@ -90,7 +81,7 @@ public class Tunjangan {
     public int hashCode() {
         int hash = 3;
         hash = 23 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 23 * hash + Objects.hashCode(this.pegawai);
+        hash = 23 * hash + Objects.hashCode(this.idPegawai);
         hash = 23 * hash + Objects.hashCode(this.periodeBulan);
         hash = 23 * hash + Objects.hashCode(this.periodeTahun);
         hash = 23 * hash + Objects.hashCode(this.namaTunjangan);
@@ -111,7 +102,7 @@ public class Tunjangan {
         if (this.id != other.id) {
             return false;
         }
-        if (!Objects.equals(this.pegawai, other.pegawai)) {
+         if (!Objects.equals(this.idPegawai, other.idPegawai)) {
             return false;
         }
         if (!Objects.equals(this.periodeBulan, other.periodeBulan)) {
@@ -134,7 +125,21 @@ public class Tunjangan {
 
     @Override
     public String toString() {
-        return "Tunjangan{" + "id=" + id + ", pegawai=" + pegawai + ", periodeBulan=" + periodeBulan + ", periodeTahun=" + periodeTahun + ", namaTunjangan=" + namaTunjangan + ", nilaiTunjangan=" + nilaiTunjangan + ", tanggal=" + tanggal + '}';
+        return "Tunjangan{" + "id=" + id + ", idPegawai=" + idPegawai + ", periodeBulan=" + periodeBulan + ", periodeTahun=" + periodeTahun + ", namaTunjangan=" + namaTunjangan + ", nilaiTunjangan=" + nilaiTunjangan + ", tanggal=" + tanggal + '}';
+    }
+
+    /**
+     * @return the idPegawai
+     */
+    public int getIdPegawai() {
+        return idPegawai;
+    }
+
+    /**
+     * @param idPegawai the idPegawai to set
+     */
+    public void setIdPegawai(int idPegawai) {
+        this.idPegawai = idPegawai;
     }
 
     
